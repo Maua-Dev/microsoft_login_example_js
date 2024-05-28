@@ -1,11 +1,25 @@
-import './App.css';
+import React from "react";
+import Login from "./Login";
+import "./App.css";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
 
-function App() {
-  return (
-    <div className="App">
-      <h1 className="Title">Bem-vindo ao seu aplicativo! 🎃</h1>
-    </div>
-  );
+
+const msalConfig = {
+    auth: {
+        clientId: process.env.REACT_APP_CLIENT_ID,
+        authority: "https://login.microsoftonline.com/" + process.env.REACT_APP_TENANT,
+        redirectUri: window.location.origin + "/",
+    }
+};
+
+export default function App() {
+
+    const msalInstance = new PublicClientApplication(msalConfig);
+
+    return (
+        <MsalProvider instance={msalInstance}>
+            <Login />
+        </MsalProvider>
+    );
 }
-
-export default App;
