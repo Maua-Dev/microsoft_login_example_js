@@ -41,6 +41,7 @@ jobs:
             npm install
         - name: Build and Export
           run: |
+            npm install
             npm run build
         - name: Setup envs
           run: |
